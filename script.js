@@ -100,6 +100,10 @@ function update() {
   player.y += player.vY;
   player.grounded = false;
 
+  if (player.x < 0) {
+    player.x = 0;
+  }
+
   /**
    * CHALLENGE 3: WORLD BOUNDARIES (PITS)
    */
