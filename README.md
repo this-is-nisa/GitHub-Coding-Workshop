@@ -62,12 +62,18 @@ This workshop is divided into **6 Sprints**. After you complete the code for eac
 - **Task:** Program a check to see if Yoshi's `y` position is greater than the `canvas.height`. If so, trigger the Game Over state.
 - *Git Check:* `git commit -m "fix: implement pit death logic"`
 
-### Sprint 4: The Solid World (Collisions)
-**Goal:** Make the world feel physical. Right now, Yoshi is a ghost who can walk through walls!
-- **Task 1 (Head-Butt):** If Yoshi hits a block from below, make him bounce down. If it's a `?` block, delete it!
-- **Task 2 (The Walls):** Use Yoshi's velocity (`vX`) to detect if he is hitting the side of a brick. If he is, "push" him back so he can't pass through.
-- **Task 3 (The Floor):** Look at the provided code to see how we "snap" Yoshi to the top of a platform. Can you use that logic for the sides?
-- *Git Check:* `git add .`, `git commit -m "Sprint 4: Solid World"`, `git push`
+### Sprint 4: The Solid World (4-Way Collision)
+**Goal:** Make the world feel physical. Right now, Yoshi is a ghost who can walk through walls and ceilings!
+* **Task 1 (The Head-Butt):** If Yoshi hits a block from below (`player.vY < 0`), make him bounce down. If the block `type` is an `item`, use `platforms.splice(i, 1)` to delete it and add 50 points to the score!
+* **Task 2 (The Right Wall):** Use Yoshi's velocity (`vX > 0`) to detect if he is hitting a wall to his right. 
+    * **The Buffer:** Add the "Feet Buffer" (`player.y + player.h > p.y + 5`) AND the "Ghost Head" check (`player.y < p.y + tileSize - 15`) so his head can overlap the bottom of blocks while walking.
+* **Task 3 (The Left Wall):** Use Yoshi's velocity (`vX < 0`) to detect if he is hitting a wall to his left.
+    * **The Mirror:** Apply the same "Feet" and "Ghost Head" buffers here so Yoshi moves smoothly in both directions.
+* **Task 4 (The Snap):** When a collision is detected, "snap" Yoshi to the edge of the block (e.g., `player.x = p.x - player.w`) so he doesn't get stuck inside the bricks.
+**Git Check:**
+1. git add .
+2. git commit -m "Sprint 4: Implemented 4-way collision with ghost head buffers"
+3. git push origin main
 
 ### Sprint 5: Stomp or Die
 **Goal:** Complex Physics Logic.
